@@ -14,6 +14,8 @@ public:
 	void resetTablero();
     	void mostrarTablero();
     	char getTableroEnPos(int f, int c);
+    	int getFilas();
+    	int getColumnas();
 };
 
 #endif // TABLERO_H
