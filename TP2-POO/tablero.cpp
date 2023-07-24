@@ -5,12 +5,12 @@ Tablero::Tablero(int f, int c)
 	generarTablero(f,c);
 }
 
-void Tablero::generarTablero()
+void Tablero::generarTablero(int f, int c)
 {
-	tablero = new int*[f];
+    tablero = new char*[f];
 	for(int i=0; i<f; i++)
 	{
-		tablero[i] = new int[c];
+        tablero[i] = new char[c];
 	}
 	
 	filas=f;
@@ -19,14 +19,14 @@ void Tablero::generarTablero()
 	resetTablero();//establece todas las posiciones en 0
 }
 
-int** Tablero::getTablero()
+char** Tablero::getTablero()
 {
 	return tablero;
 }
 
 void Tablero::setTablero(int f, int c)//0-vacio  1-camino  2-estacion
 {
-	if(f<=filas && c<=columnas
+    if(f<=filas && c<=columnas)
 	{
 		tablero[f][c]==1;
 	}
@@ -34,9 +34,9 @@ void Tablero::setTablero(int f, int c)//0-vacio  1-camino  2-estacion
 
 void Tablero::resetTablero()
 {
-	for(int i=0; i<f; i++)
+    for(int i=0; i<filas; i++)
 	{
-		for(int j=0; j<c; j++)
+        for(int j=0; j<columnas; j++)
 		{
 			tablero[i][j]=0;
 		}
