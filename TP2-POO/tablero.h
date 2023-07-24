@@ -10,10 +10,10 @@ private:
 public:
     Tablero(int f, int c);
 	void generarTablero(int f, int c);
-	void setTablero(int f, int c);
+    	void setTablero(int f, int c, char car);
 	void resetTablero();
     	void mostrarTablero();
-    	char** getTablero();
+    	char getTableroEnPos(int f, int c);
 };
 
 #endif // TABLERO_H
