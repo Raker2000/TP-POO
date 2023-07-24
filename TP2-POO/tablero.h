@@ -6,13 +6,13 @@ class Tablero
 {
 private:
 	int filas, columnas;
-	int** tablero;//la clase tablero contiene a la matriz tablero
+    	char** tablero;//la clase tablero contiene a la matriz tablero
 public:
-    Tablero();
+    Tablero(int f, int c);
 	void generarTablero(int f, int c);
 	void setTablero(int f, int c);
 	void resetTablero();
-	int** getTablero();
+    	char** getTablero();
 };
 
 #endif // TABLERO_H
