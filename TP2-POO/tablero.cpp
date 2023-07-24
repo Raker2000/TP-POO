@@ -23,16 +23,16 @@ void Tablero::generarTablero(int f, int c)
 	resetTablero();//establece todas las posiciones en 0
 }
 
-char** Tablero::getTablero()
+char Tablero::getTableroEnPos(int f, int c)
 {
-	return tablero;
+    return tablero[f][c];
 }
 
-void Tablero::setTablero(int f, int c)//0-vacio  1-camino  2-estacion
+void Tablero::setTablero(int f, int c, char car)//0 (vacio),  * (camino),  — (estacion horizontal), | (estacion vertical), T (3 caminos)
 {
     if(f<=filas && c<=columnas)
 	{
-        tablero[f][c]=1;
+        tablero[f][c]=car;
 	}
 }
 
