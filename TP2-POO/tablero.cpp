@@ -1,4 +1,8 @@
 #include "tablero.h"
+#include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 Tablero::Tablero(int f, int c)
 {
@@ -28,7 +32,7 @@ void Tablero::setTablero(int f, int c)//0-vacio  1-camino  2-estacion
 {
     if(f<=filas && c<=columnas)
 	{
-		tablero[f][c]==1;
+        tablero[f][c]=1;
 	}
 }
 
@@ -38,7 +42,19 @@ void Tablero::resetTablero()
 	{
         for(int j=0; j<columnas; j++)
 		{
-			tablero[i][j]=0;
+            tablero[i][j]='0';
 		}
-	}
+    }
+}
+
+void Tablero::mostrarTablero()
+{
+    for(int i=0; i<filas; i++)
+    {
+        for(int j=0; j<columnas; j++)
+        {
+            cout<<tablero[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 }
