@@ -28,6 +28,16 @@ char Tablero::getTableroEnPos(int f, int c)
     return tablero[f][c];
 }
 
+int Tablero::getFilas()
+{
+    return filas;
+}
+
+int Tablero::getColumnas()
+{
+    return columnas;
+}
+
 void Tablero::setTablero(int f, int c, char car)//0 (vacio),  * (camino),  — (estacion horizontal), | (estacion vertical), T (3 caminos)
 {
     if(f<=filas && c<=columnas)
