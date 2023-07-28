@@ -18,5 +18,6 @@ int main(int argc, char *argv[])
 
     t->mostrarTablero();
 
+
     return a.exec();
 }
