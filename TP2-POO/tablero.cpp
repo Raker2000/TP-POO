@@ -4,6 +4,11 @@
 
 using namespace std;
 
+Tablero::Tablero()
+{
+
+}
+
 Tablero::Tablero(int f, int c)
 {
 	generarTablero(f,c);
