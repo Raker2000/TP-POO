@@ -7,9 +7,14 @@ class Juego
 {
 private:
     Estacion* estaciones;//vector de estaciones, deben estar referenciadas para poder eliminarlas mas tarde
+    int posXRuta;
+    int posYRuta;
 public:
     Juego();
-    void iniciarPartida();
+    void iniciarPartida(Tablero* t);
+    void crearEstacion(Tablero* t);
+    void crearRuta(Tablero* t, char dir);
+    //falta crear temporizador
 };
 
 #endif // JUEGO_H

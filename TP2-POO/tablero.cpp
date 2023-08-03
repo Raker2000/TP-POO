@@ -64,6 +64,7 @@ void Tablero::resetTablero()
 
 void Tablero::mostrarTablero()
 {
+    system("CLS");
     for(int i=0; i<filas; i++)
     {
         for(int j=0; j<columnas; j++)
