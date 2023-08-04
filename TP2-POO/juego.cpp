@@ -3,17 +3,20 @@
 #include <estacion.h>
 #include <qtimer.h>
 #include <qrandom.h>
+#include <iostream>
 
 Juego::Juego()
 {
-
+    tiempo= new QTimer(this);
+    tiempo->setInterval(10000); //10000 milisegundos igual a 10 segundos. No recuerdo si se estableció un tiempo previo o si lo definíamos nosotros
+    connect(tiempo, SIGNAL(timeout()), this, SLOT(temporizador()));
 }
 
 void Juego::iniciarPartida(Tablero* t)
 {
     estaciones.push_back(crearEstacion(t));
     estaciones.push_back(crearEstacion(t));
-    //arrancar el temporizador (una vez esté implementado)
+    tiempo->start();
     posXRuta = QRandomGenerator::global()->bounded(1,t->getFilas()-1);
     posYRuta = QRandomGenerator::global()->bounded(1,t->getColumnas()-1);
 
@@ -66,4 +69,9 @@ void Juego::crearRuta(Tablero *t, char dir)
     {
         estaciones.push_back(crearEstacion(t));
     }
+}
+
+void Juego::temporizador(){ //falta lo de finalizar el juego cuando se termino el tiempo, por ahora solo lanza un mensaje
+    cout << "¡Tiempo finalizado!" << endl;
+    tiempo->stop();
 }

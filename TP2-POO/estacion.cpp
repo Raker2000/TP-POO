@@ -25,13 +25,13 @@ Estacion::Estacion(Tablero *t)
     /// OPTIMIZAR TODO ESTE CODIGO ///
     //////////////////////////////////
 
-    char tiposEstaciones[4];//esto tiene que ser puntero para poder eliminarlo despues
+    char * tiposEstaciones= new char[4];
     tiposEstaciones[0]='N';//normal
     tiposEstaciones[1]='M';//multiples
     tiposEstaciones[2]='H';//horizontales
     tiposEstaciones[3]='V';//verticales
 
-    int seleccionEstacion = QRandomGenerator::global()->bounded(4);
+    int seleccionEstacion = QRandomGenerator::global()->bounded(5);
 
     posF = QRandomGenerator::global()->bounded(1,t->getFilas()-1);///debe estar dentro del margen jugable
     posC = QRandomGenerator::global()->bounded(1,t->getColumnas()-1);
@@ -46,7 +46,7 @@ Estacion::Estacion(Tablero *t)
     t->setTablero(posF,posC,tiposEstaciones[seleccionEstacion]);
     tipo = tiposEstaciones[seleccionEstacion];
 
-    //aca hay que eliminar el vector char
+    delete[] tiposEstaciones;
 }
 
 bool Estacion::estaConectada(Tablero *t)
