@@ -11,7 +11,7 @@ Tablero::Tablero()
 
 Tablero::Tablero(int f, int c)
 {
-	generarTablero(f,c);
+    generarTablero(f+2,c+2);///el tablero generado es mas grande para generar un margen alrededor en donde las posiciones sean validas
 }
 
 void Tablero::generarTablero(int f, int c)
@@ -43,7 +43,7 @@ int Tablero::getColumnas()
     return columnas;
 }
 
-void Tablero::setTablero(int f, int c, char car)//0 (vacio),  * (camino),  — (estacion horizontal), | (estacion vertical), T (3 caminos)
+void Tablero::setTablero(int f, int c, char car)
 {
     if(f<=filas && c<=columnas)
 	{
@@ -65,9 +65,9 @@ void Tablero::resetTablero()
 void Tablero::mostrarTablero()
 {
     system("CLS");
-    for(int i=0; i<filas; i++)
+    for(int i=1; i<filas-1; i++)
     {
-        for(int j=0; j<columnas; j++)
+        for(int j=1; j<columnas-1; j++)
         {
             cout<<tablero[i][j]<<" ";
         }

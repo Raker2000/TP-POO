@@ -11,19 +11,23 @@ Juego::Juego()
 
 void Juego::iniciarPartida(Tablero* t)
 {
-    crearEstacion(t);
+    estaciones.push_back(crearEstacion(t));
+    estaciones.push_back(crearEstacion(t));
     //arrancar el temporizador (una vez esté implementado)
-    posXRuta = QRandomGenerator::global()->bounded(t->getFilas());
-    posYRuta = QRandomGenerator::global()->bounded(t->getColumnas());
+    posXRuta = QRandomGenerator::global()->bounded(1,t->getFilas()-1);
+    posYRuta = QRandomGenerator::global()->bounded(1,t->getColumnas()-1);
+
+
     t->setTablero(posXRuta,posYRuta,'X');//cambiar esto para que la primer ruta aparezca aledaña o encima a una estacion (no se cual de las 2 hay que hacer)
 }
 
-void Juego::crearEstacion(Tablero *t)
+Estacion* Juego::crearEstacion(Tablero *t)
 {
-    Estacion* e = new Estacion(t);//se necesita almacenar las instancias para eliminarlas despues
+    Estacion* e = new Estacion(t);
     //las estaciones horizontales no pueden estar pegadas ni al techo ni al piso
     //las verticales no pueden estar pegadas a las paredes
     //no deben ser adyacentes
+    return e;
 }
 
 void Juego::crearRuta(Tablero *t, char dir)
@@ -47,5 +51,19 @@ void Juego::crearRuta(Tablero *t, char dir)
         posYRuta++;
         t->setTablero(posXRuta,posYRuta,'X');
         break;
+    }
+
+    bool todasEstacionesConectadas=true;
+    for(int i=0; i<estaciones.size(); i++)
+    {
+        if(!estaciones[i]->estaConectada(t))//si encuentra que una estacion no esta conectada
+        {
+            todasEstacionesConectadas = false;
+            i=estaciones.size();
+        }
+    }
+    if(todasEstacionesConectadas)
+    {
+        estaciones.push_back(crearEstacion(t));
     }
 }
