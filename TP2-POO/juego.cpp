@@ -7,7 +7,7 @@
 
 Juego::Juego()
 {
-    tiempo= new QTimer(this);
+    tiempo = new QTimer(this);
     tiempo->setInterval(10000); //10000 milisegundos igual a 10 segundos. No recuerdo si se estableció un tiempo previo o si lo definíamos nosotros
     connect(tiempo, SIGNAL(timeout()), this, SLOT(temporizador()));
 }
@@ -16,7 +16,7 @@ void Juego::iniciarPartida(Tablero* t)
 {
     estaciones.push_back(crearEstacion(t));
     estaciones.push_back(crearEstacion(t));
-    tiempo->start();
+    //tiempo->start();
     posXRuta = QRandomGenerator::global()->bounded(1,t->getFilas()-1);
     posYRuta = QRandomGenerator::global()->bounded(1,t->getColumnas()-1);
 
@@ -36,23 +36,35 @@ Estacion* Juego::crearEstacion(Tablero *t)
 void Juego::crearRuta(Tablero *t, char dir)
 {
     //falta realizar verificacion de limites, para que no se pueda introducir una posicion invalida (si la matriz tiene x=10, x no puede ser 12)
-    switch(dir)//las rutas no deben poder atravesarse entre si
+    switch(dir)
     {
     case 'w':
-        posXRuta--;
-        t->setTablero(posXRuta,posYRuta,'X');
+        if(t->getTableroEnPos(posXRuta-1,posYRuta)=='0')
+        {
+            posXRuta--;
+            t->setTablero(posXRuta,posYRuta,'X');
+        }
         break;
     case 'a':
-        posYRuta--;
-        t->setTablero(posXRuta,posYRuta,'X');
+        if(t->getTableroEnPos(posXRuta,posYRuta-1)=='0')
+        {
+            posYRuta--;
+            t->setTablero(posXRuta,posYRuta,'X');
+        }
         break;
     case 's':
-        posXRuta++;
-        t->setTablero(posXRuta,posYRuta,'X');
+        if(t->getTableroEnPos(posXRuta+1,posYRuta)=='0')
+        {
+            posXRuta++;
+            t->setTablero(posXRuta,posYRuta,'X');
+        }
         break;
     case 'd':
-        posYRuta++;
-        t->setTablero(posXRuta,posYRuta,'X');
+        if(t->getTableroEnPos(posXRuta,posYRuta+1)=='0')
+        {
+            posYRuta++;
+            t->setTablero(posXRuta,posYRuta,'X');
+        }
         break;
     }
 
@@ -72,6 +84,6 @@ void Juego::crearRuta(Tablero *t, char dir)
 }
 
 void Juego::temporizador(){ //falta lo de finalizar el juego cuando se termino el tiempo, por ahora solo lanza un mensaje
-    cout << "¡Tiempo finalizado!" << endl;
+    std::cout << "¡Tiempo finalizado!" << std::endl;
     tiempo->stop();
 }
