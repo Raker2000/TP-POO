@@ -2,7 +2,7 @@
 #include <qrandom.h>
 #include <iostream>
 
-bool posicionValida(Tablero* t, int posF, int posC)
+bool posicionValida(Tablero* t, int posF, int posC, char tip)
 {
     bool valida=true;
     for(int i=-1; i<2; i++)
@@ -15,6 +15,14 @@ bool posicionValida(Tablero* t, int posF, int posC)
                 i=2; j=2;
             }
         }
+    }
+    if(tip=='H' && (posC>=t->getColumnas()-1 || posC==1))///si las estaciones horizontales estan pegadas a una pared
+    {
+        valida = false;
+    }
+    if(tip=='V' && (posF>=t->getFilas()-1 || posF==1))///si las estaciones verticales estan pegadas a el techo o piso
+    {
+        valida = false;
     }
     return valida;
 }
@@ -36,7 +44,8 @@ Estacion::Estacion(Tablero *t)
     posF = QRandomGenerator::global()->bounded(1,t->getFilas()-1);///debe estar dentro del margen jugable
     posC = QRandomGenerator::global()->bounded(1,t->getColumnas()-1);
 
-    while(t->getTableroEnPos(posF,posC)!='0' && posicionValida(t,posF,posC))///evita que se puedan generar 2 estaciones en el mismo lugar o encima de una ruta
+    tipo = tiposEstaciones[seleccionEstacion];
+    while(t->getTableroEnPos(posF,posC)!='0' && posicionValida(t,posF,posC,tipo))///evita que se puedan generar 2 estaciones en el mismo lugar o encima de una ruta
     {
         posF = QRandomGenerator::global()->bounded(1,t->getFilas()-1);
         posC = QRandomGenerator::global()->bounded(1,t->getColumnas()-1);
@@ -44,7 +53,7 @@ Estacion::Estacion(Tablero *t)
 
     conectada = false;
     t->setTablero(posF,posC,tiposEstaciones[seleccionEstacion]);
-    tipo = tiposEstaciones[seleccionEstacion];
+
 
     delete[] tiposEstaciones;
 }

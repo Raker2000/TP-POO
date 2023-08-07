@@ -18,6 +18,7 @@ public:
     Estacion* crearEstacion(Tablero* t);
     void crearRuta(Tablero* t, char dir);
     void temporizador();
+    bool revisarVictoria(Tablero* t);
 };
 
 #endif // JUEGO_H

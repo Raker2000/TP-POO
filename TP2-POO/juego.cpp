@@ -14,6 +14,8 @@ Juego::Juego()
 
 void Juego::iniciarPartida(Tablero* t)
 {
+    estaciones.clear();
+    t->resetTablero();
     estaciones.push_back(crearEstacion(t));
     estaciones.push_back(crearEstacion(t));
     //tiempo->start();
@@ -27,9 +29,6 @@ void Juego::iniciarPartida(Tablero* t)
 Estacion* Juego::crearEstacion(Tablero *t)
 {
     Estacion* e = new Estacion(t);
-    //las estaciones horizontales no pueden estar pegadas ni al techo ni al piso
-    //las verticales no pueden estar pegadas a las paredes
-    //no deben ser adyacentes
     return e;
 }
 
@@ -71,7 +70,7 @@ void Juego::crearRuta(Tablero *t, char dir)
     bool todasEstacionesConectadas=true;
     for(int i=0; i<estaciones.size(); i++)
     {
-        if(!estaciones[i]->estaConectada(t))//si encuentra que una estacion no esta conectada
+        if(!estaciones[i]->estaConectada(t))///si encuentra que una estacion no esta conectada
         {
             todasEstacionesConectadas = false;
             i=estaciones.size();
@@ -81,9 +80,36 @@ void Juego::crearRuta(Tablero *t, char dir)
     {
         estaciones.push_back(crearEstacion(t));
     }
+
+    revisarVictoria(t);
 }
 
 void Juego::temporizador(){ //falta lo de finalizar el juego cuando se termino el tiempo, por ahora solo lanza un mensaje
     std::cout << "¡Tiempo finalizado!" << std::endl;
+    estaciones.clear();
     tiempo->stop();
+}
+
+bool Juego::revisarVictoria(Tablero *t)
+{
+    bool ganaste=true;
+
+    for(int i=0; i<t->getFilas(); i++)
+    {
+        for(int j=0; j<t->getColumnas(); j++)
+        {
+            if(t->getTableroEnPos(i,j)=='0')
+            {
+                ganaste = false;
+            }
+        }
+    }
+
+    if(ganaste)
+    {
+        estaciones.clear();
+        std::cout<<"Ganaste!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+    }
+
+    return ganaste;
 }
